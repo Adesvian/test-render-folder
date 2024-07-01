@@ -35,6 +35,27 @@ app.get("/create", (req, res) => {
   });
 });
 
+app.get("/delete", (req, res) => {
+  const folderName = req.query.folderName;
+
+  // Tentukan path folder
+  const folderPath = path.join(__dirname, folderName);
+
+  // Periksa apakah folder ada
+  if (!fs.existsSync(folderPath)) {
+    return res.status(400).send("Folder tidak ada.");
+  }
+
+  // Hapus folder
+  fs.rm(folderPath, { recursive: true }, (err) => {
+    if (err) {
+      console.error("Error deleting folder:", err);
+      return res.status(500).send("Gagal menghapus folder.");
+    }
+    res.status(200).send(`Folder ${folderName} berhasil dihapus.`);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
 });
