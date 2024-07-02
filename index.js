@@ -125,7 +125,7 @@ app.get("/keep-alive", (req, res) => {
 });
 
 function sendKeepAlive() {
-  const url = `https://test-render-folder.onrender.com/keep-alive`; // Sesuaikan dengan URL server Anda
+  const url = `https://test-render-folder.onrender.com/keep-alive`;
   axios
     .get(url)
     .then((response) => {
@@ -136,8 +136,8 @@ function sendKeepAlive() {
     });
 }
 
-// Kirim keep-alive setiap 30 menit
-setInterval(sendKeepAlive, 30 * 60 * 1000);
+// Kirim keep-alive setiap 14 menit
+setInterval(sendKeepAlive, 14 * 60 * 1000);
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
