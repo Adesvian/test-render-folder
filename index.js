@@ -50,21 +50,22 @@ app.get("/delete", (req, res) => {
   });
 });
 
-app.get("/list-files", (req, res) => {
+app.get('/list-files', (req, res) => {
+  const startTime = Date.now();
   const basePath = __dirname;
 
   fs.readdir(basePath, (err, files) => {
     if (err) {
-      console.error("Error reading directory:", err);
-      return res.status(500).send("Gagal membaca direktori.");
+      console.error('Error reading directory:', err);
+      return res.status(500).send('Gagal membaca direktori.');
     }
 
     const excluded = [
-      ".git",
-      "index.js",
-      "node_modules",
-      "package-lock.json",
-      "package.json",
+      '.git',
+      'index.js',
+      'node_modules',
+      'package-lock.json',
+      'package.json',
     ];
     const fileInfo = files
       .filter((file) => !excluded.includes(file))
@@ -84,6 +85,10 @@ app.get("/list-files", (req, res) => {
     };
 
     res.status(200).json(responseInfo);
+
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    console.log(`Request to /list-files took ${duration}ms`);
   });
 });
 
